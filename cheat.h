@@ -1,0 +1,26 @@
+#ifndef CHEAT_H
+#define CHEAT_H
+#include <windows.h>
+
+extern void InitCheat();
+
+class CCheatManager
+{
+public:
+    CCheatManager();
+    ~CCheatManager();
+
+    BOOL Init();
+    void Run();
+    void Exit();
+
+private:
+    BOOL HookGame();
+
+    bool m_bIsRunning;
+    bool m_bIsInitialized;
+};
+
+extern CCheatManager *g_CheatManager;
+
+#endif
