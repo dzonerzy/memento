@@ -1,6 +1,8 @@
 #ifndef CHEAT_H
 #define CHEAT_H
+
 #include <windows.h>
+#include "MinHook.h"
 
 extern void InitCheat();
 
@@ -17,6 +19,7 @@ public:
 private:
     BOOL HookGame();
 
+    DWORD moduleHandle;
     bool m_bIsRunning;
     bool m_bIsInitialized;
 };

@@ -5,23 +5,23 @@
 CC = g++
 
 # define any compile-time flags 
-CFLAGS = -Wall -m32 -O3 -fPIC -std=c++11 -Wunused-but-set-variable
+CFLAGS = -Wall -m32 -fPIC -std=c++11 -Wunused-but-set-variable -O0 -masm=intel
 
 # define any directories containing header files other than /usr/include
 
-INCLUDES =  -I.
+INCLUDES =  -I. -I./minhook/include/
 
 # define library paths in addition to /usr/lib
 
-LFLAGS =
+LFLAGS = -L./minhook/lib/
 
 # define any libraries to link into executable:
 
-LIBS =
+LIBS = -lMinHook
 
 # define the C source files (main.cpp cheat.cpp etc)
 
-SRCS = subhook.cpp subhook_x86.cpp subhook_windows.cpp cheat.cpp main.cpp
+SRCS = $(wildcard *.cpp)
 
 # define the C object files
 

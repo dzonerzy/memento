@@ -1,4 +1,6 @@
 #include "cheat.h"
+#include "hooks.h"
+#include <stdio.h>
 
 CCheatManager *g_CheatManager = NULL;
 
@@ -19,6 +21,7 @@ CCheatManager::CCheatManager()
 {
     m_bIsRunning = false;
     m_bIsInitialized = false;
+    moduleHandle = (DWORD)GetModuleHandle(NULL);
 }
 
 CCheatManager::~CCheatManager()
@@ -45,7 +48,16 @@ void CCheatManager::Run()
 
 BOOL CCheatManager::HookGame()
 {
-    MessageBoxA(NULL, "Hooked!", "Hooked!", MB_OK);
+
+    if (MH_Initialize() != MH_OK)
+        return FALSE;
+
+    MH_STATUS create = MH_CreateHook((void *)(moduleHandle + 0xb1130), (void *)Hooks::HookLowerSanity, (void **)&Hooks::oLowerSanity);
+    MH_STATUS enable = MH_EnableHook((void *)(moduleHandle + 0xb1130));
+
+    if (create != MH_OK || enable != MH_OK)
+        return FALSE;
+
     return TRUE;
 }
 
